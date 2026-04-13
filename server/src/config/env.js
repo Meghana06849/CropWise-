@@ -14,6 +14,10 @@ export const env = {
   port: Number(process.env.PORT || 5000),
   nodeEnv: process.env.NODE_ENV || "development",
   mongodbUri: process.env.MONGODB_URI,
+  mongodbDbName: process.env.MONGODB_DB_NAME || "cropwise",
+  mongodbAuthSource:
+    process.env.MONGODB_AUTH_SOURCE ||
+    (String(process.env.MONGODB_URI || "").startsWith("mongodb+srv://") ? "admin" : ""),
   geminiApiKey: process.env.GEMINI_API_KEY,
   geminiModel: process.env.GEMINI_MODEL || "gemini-2.0-flash",
   jwtSecret: process.env.JWT_SECRET,

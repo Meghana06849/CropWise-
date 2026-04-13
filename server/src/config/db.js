@@ -19,7 +19,9 @@ export const connectDB = async () => {
       connectTimeoutMS: 10000,
       socketTimeoutMS: 30000,
       maxPoolSize: env.nodeEnv === "production" ? 100 : 20,
-      minPoolSize: env.nodeEnv === "production" ? 10 : 0
+      minPoolSize: env.nodeEnv === "production" ? 10 : 0,
+      dbName: env.mongodbDbName,
+      ...(env.mongodbAuthSource ? { authSource: env.mongodbAuthSource } : {})
     })
     .finally(() => {
       connectionPromise = null;
