@@ -6,7 +6,7 @@
     "dev": "concurrently \"npm --prefix server run dev\" \"npm --prefix client run dev -- --host 0.0.0.0 --port 5173\"",
     "dev:server": "npm --prefix server run dev",
     "dev:client": "npm --prefix client run dev -- --host 0.0.0.0 --port 5173",
-    "build": "npm --prefix client install && npm --prefix server install && npm --prefix client run build",
+    "build": "npm --prefix client install --include=dev && npm --prefix server install --include=dev && npm --prefix client run build",
     "build:all": "npm run build",
     "start": "npm run start:server",
     "start:server": "npm --prefix server run start"
