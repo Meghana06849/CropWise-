@@ -16,6 +16,18 @@ const init = async () => {
 };
 
 export default async function handler(req, res) {
-  await init();
+  if (req.url === '/api/health' || req.url === '/health') {
+    return res.status(200).json({ success: true, status: 'ok' });
+  }
+
+  try {
+    await init();
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: error.message || 'Server initialization failed'
+    });
+  }
+
   return app(req, res);
 }
