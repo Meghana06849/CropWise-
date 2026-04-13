@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
-import { socket } from '../../lib/socket';
+import { socket, isRealtimeEnabled } from '../../lib/socket';
 import { useAuth } from '../../context/AuthContext';
 import { useNotifications } from '../../context/NotificationContext';
 
@@ -10,8 +10,8 @@ export function RealtimeBridge() {
   const { addNotification } = useNotifications();
 
   useEffect(() => {
-    if (!isAuthenticated || !token) {
-      socket.disconnect();
+    if (!isRealtimeEnabled || !socket || !isAuthenticated || !token) {
+      socket?.disconnect();
       return undefined;
     }
 

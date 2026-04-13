@@ -22,10 +22,18 @@ export const env = {
   jwtRefreshExpiry: process.env.JWT_REFRESH_EXPIRY || "30d",
   openWeatherApiKey: process.env.OPENWEATHER_API_KEY,
   openWeatherBaseUrl: process.env.OPENWEATHER_BASE_URL || "https://api.openweathermap.org",
-  allowedOrigins: (process.env.ALLOWED_ORIGINS || "http://localhost:5173")
-    .split(",")
-    .map((origin) => origin.trim())
-    .filter(Boolean)
+  allowedOrigins: Array.from(
+    new Set(
+      [
+        ...(process.env.ALLOWED_ORIGINS || "http://localhost:5173")
+          .split(",")
+          .map((origin) => origin.trim())
+          .filter(Boolean),
+        ...(process.env.VERCEL_URL ? [`https://${process.env.VERCEL_URL}`] : []),
+        ...(process.env.VERCEL_BRANCH_URL ? [`https://${process.env.VERCEL_BRANCH_URL}`] : [])
+      ]
+    )
+  )
 };
 
 export const validateEnv = () => {
